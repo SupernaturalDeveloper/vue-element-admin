@@ -7,16 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
-    redirect: "home"
-  },
-  {
     path: "/home",
     name: "home",
     component: HomeView
   },
   {
-    path: "/login",
+    path: "/",
     name: "login",
     component: LoginView
   }
