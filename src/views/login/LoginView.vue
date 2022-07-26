@@ -27,7 +27,7 @@
         data() {
             return {
                 bg: require("@/assets/img/login/login_bg2.jpg"),
-                bg2: require("@/assets/img/login/login_bg3.jpg"),
+                bg2: require("@/assets/img/login/login_bg4.jpg"),
             };
         },
         beforeRouteUpdate(to, from, next) {},
