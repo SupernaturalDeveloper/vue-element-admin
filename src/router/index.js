@@ -6,6 +6,7 @@ const LoginView = () => import("@/views/login/LoginView")
 Vue.use(VueRouter)
 
 const routes = [
+
   {
     path: "/home",
     name: "home",
@@ -16,6 +17,7 @@ const routes = [
     name: "login",
     component: LoginView
   }
+>>>>>>> dev
 ]
 
 const router = new VueRouter({
