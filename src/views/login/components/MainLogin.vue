@@ -2,7 +2,7 @@
     <div class="mainLogin">
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="短信登录" name="first">
-                <el-input v-model="iphone" placeholder="手机号"></el-input>
+                <el-input v-model="phone" placeholder="手机号"></el-input>
                 <el-input placeholder="验证码" v-model="code">
                     <template slot="append">发送验证码</template>
                 </el-input>
@@ -22,34 +22,34 @@
 
 <script>
     /*
-                                                            系统管理员
-                                                            测试账号：lidazhao
-                                                            密码：Qwe123
-                                                            手机：13800138001
-                                                            验证码：654321
+                                                                                                        系统管理员
+                                                                                                        测试账号：lidazhao
+                                                                                                        密码：Qwe123
+                                                                                                        手机：13800138001
+                                                                                                        验证码：654321
 
-                                                            设备管理员
-                                                            测试账号：wangerxiao
-                                                            密码：Qwe123
-                                                            手机：13800138002
-                                                            验证码：654321
+                                                                                                        设备管理员
+                                                                                                        测试账号：wangerxiao
+                                                                                                        密码：Qwe123
+                                                                                                        手机：13800138002
+                                                                                                        验证码：654321
 
-                                                            系统登陆/POST：http://jxsjs.com/equipment/login
-                                                            参数：
-                                                            type: 短信登陆sms、密码登陆password
-                                                            短信登陆时：phone + code
-                                                            密码登陆时：username + password
-                                                            */
+                                                                                                        系统登陆/POST：http://jxsjs.com/equipment/login
+                                                                                                        参数：
+                                                                                                        type: 短信登陆sms、密码登陆password
+                                                                                                        短信登陆时：phone + code
+                                                                                                        密码登陆时：username + password
+                                                                                                        */
     export default {
         name: "MainLogin",
 
         data() {
             return {
                 activeName: "first",
-                iphone: "",
-                code: "",
-                username: "",
-                password: "",
+                phone: "13800138001",
+                code: "654321",
+                username: "lidazhao",
+                password: "Qwe123",
                 indexView: 0,
             };
         },
@@ -59,37 +59,28 @@
                 console.log(tab, event);
             },
             loginHandle() {
-                const _this = this;
-
-                // this.$axios.get("aa.json").then(res => console.log(res));
-                // this.$axios({
-                //     method: "post",
-                //     url: "api/equipment/login",
-                //     data: {
-                //         username: _this.username,
-                //         password: _this.password,
-                //     },
-                // }).then(res => console.log(res));
-                // if (this.indexView == "0") {
-                //     this.$axios
-                //         .get({
-                //             url: "aa.json",
-                //         })
-                //         .then(res => console.log(res))
-                //         .catch(err => console.log(err));
-                // }
-                // if (this.indexView == "1") {
-                //     this.$axios
-                //         .post({
-                //             url: "http://jxsjs.com/equipment/login",
-                //             params: {
-                //                 username: _this.username,
-                //                 password: _this.password,
-                //             },
-                //         })
-                //         .then(res => console.log(res))
-                //         .catch(err => console.log(err));
-                // }
+                let params = null;
+                if (this.indexView == "0") {
+                    params = {
+                        type: "sms",
+                        phone: this.phone,
+                        code: this.code,
+                    };
+                }
+                if (this.indexView == "1") {
+                    params = {
+                        type: "password",
+                        username: this.username,
+                        password: this.password,
+                    };
+                }
+                this.$axios({
+                    method: "post",
+                    url: "xx/equipment/login",
+                    data: params,
+                })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
             },
         },
     };

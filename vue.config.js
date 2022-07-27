@@ -7,15 +7,15 @@ module.exports = defineConfig({
     // 必须重启服务器，配置才能生效
     // proxy:代理
     proxy: {
-      '/douyu': {
+      '/xx': {
         // target：由服务器帮助到此域名中请求数据--代理
         target: 'http://jxsjs.com',
         changeOrigin: true, //代表 域名不同，需要提供代理模式
-        // 路径重写：真正发送的请求地址中，要去掉 /douyu 开头
+        // 路径重写：真正发送的请求地址中，要去掉 /xx 开头
         pathRewrite: {
           // ^:正则中得字符串开头
-          '^/douyu': '',
-          // 如果不替换则发送的请求地址为：会多一个 /douyu
+          '^/xx': '',
+          // 如果不替换则发送的请求地址为：会多一个 /xx
           // http://m.douyu.com/douyu/api/room/list?page=1
         },
       },

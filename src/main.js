@@ -10,7 +10,6 @@ import "element-ui/lib/theme-chalk/index.css"
 Vue.use(ElementUI);
 // ElementUI end
 Vue.config.productionTip = false
-// axios.defaults.crossDomain = true
 Vue.prototype.$axios = axios;
 
 new Vue({
