@@ -1,0 +1,28 @@
+
+设备管理员
+测试账号：wangerxiao
+密码：Qwe123
+手机：13800138002
+验证码：654321
+
+
+系统登陆/POST：http://jxsjs.com/equipment/login
+参数：
+type: 短信登陆sms、密码登陆password
+短信登陆时：phone + code
+密码登陆时：username + password
+
+发送手机验证码/POST：http://jxsjs.com/equipment/code
+参数：phone手机号
+
+当前登陆用户信息/GET：http://jxsjs.com/equipment/who
+
+退出登陆/POST：http://jxsjs.com/equipment/logout
+
+修改密码/POST：http://jxsjs.com/equipment/password-reset
+参数：oldPw旧密码、newPw新密码
+
+概览总数和总金额/GET：http://jxsjs.com/equipment/overview
+设备状态汇总/GET：http://jxsjs.com/equipment/status-overview
+设备分类汇总/GET：http://jxsjs.com/equipment/category-overview
+

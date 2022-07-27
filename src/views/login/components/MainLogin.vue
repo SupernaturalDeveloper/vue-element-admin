@@ -19,27 +19,24 @@
         <el-button type="primary" @click="loginHandle">登录</el-button>
     </div>
 </template>
+//  系统管理员
+// 测试账号：lidazhao
+// 密码：Qwe123
+// 手机：13800138001
+// 验证码：654321
 
+// 设备管理员
+// 测试账号：wangerxiao
+// 密码：Qwe123
+// 手机：13800138002
+// 验证码：654321
+
+// 系统登陆/POST：http://jxsjs.com/equipment/login
+// 参数：
+// type: 短信登陆sms、密码登陆password
+// 短信登陆时：phone + code
+// 密码登陆时：username + password
 <script>
-    /*
-                                                                                                        系统管理员
-                                                                                                        测试账号：lidazhao
-                                                                                                        密码：Qwe123
-                                                                                                        手机：13800138001
-                                                                                                        验证码：654321
-
-                                                                                                        设备管理员
-                                                                                                        测试账号：wangerxiao
-                                                                                                        密码：Qwe123
-                                                                                                        手机：13800138002
-                                                                                                        验证码：654321
-
-                                                                                                        系统登陆/POST：http://jxsjs.com/equipment/login
-                                                                                                        参数：
-                                                                                                        type: 短信登陆sms、密码登陆password
-                                                                                                        短信登陆时：phone + code
-                                                                                                        密码登陆时：username + password
-                                                                                                        */
     export default {
         name: "MainLogin",
 
@@ -59,13 +56,15 @@
                 console.log(tab, event);
             },
             loginHandle() {
-                let params = null;
+                let params = null,
+                    user = null;
                 if (this.indexView == "0") {
                     params = {
                         type: "sms",
                         phone: this.phone,
                         code: this.code,
                     };
+                    user = this.phone;
                 }
                 if (this.indexView == "1") {
                     params = {
@@ -73,13 +72,19 @@
                         username: this.username,
                         password: this.password,
                     };
+                    user = this.username;
                 }
                 this.$axios({
                     method: "post",
                     url: "xx/equipment/login",
                     data: params,
                 })
-                    .then(res => console.log(res))
+                    .then(res => {
+                        if (res.data.code == 0) {
+                            window.sessionStorage.setItem("user", user);
+                            this.$router.push("/home");
+                        }
+                    })
                     .catch(err => console.log(err));
             },
         },
