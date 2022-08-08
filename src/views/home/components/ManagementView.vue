@@ -1,18 +1,18 @@
 <template>
-    <div>设备管理</div>
+    <register-and-management
+        title="设备管理"
+        statusListApi="getStatusListEquip"
+        listApi="postEquipList"
+    ></register-and-management>
 </template>
 
 <script>
+    import RegisterAndManagement from "@/components/RegisterAndManagement";
     export default {
-        name: "ManagementView",
-
-        data() {
-            return {};
+        name: "RegisterView",
+        components: {
+            RegisterAndManagement,
         },
-
-        mounted() {},
-
-        methods: {},
     };
 </script>
 

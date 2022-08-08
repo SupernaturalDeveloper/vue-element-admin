@@ -74,14 +74,10 @@
                     };
                     user = this.username;
                 }
-                this.$axios({
-                    method: "post",
-                    url: "xx/equipment/login",
-                    data: params,
-                })
+                this.Req.postLogin(params)
                     .then(res => {
-                        if (res.data.code == 0) {
-                            window.sessionStorage.setItem("user", user);
+                        if (res.code == 0) {
+                            window.localStorage.setItem("user", user);
                             this.$router.push("/home");
                         }
                     })

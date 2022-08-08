@@ -13,6 +13,16 @@ const routes = [
   {
     path: "/home",
     component: HomeView,
+    meta: {
+      login_request: true
+    },
+    // beforeEnter (to, from, next) {
+    //   if (window.localStorage.getItem("user")) {
+    //     next()
+    //   } else {
+    //     next({ path: "/" })
+    //   }
+    // },
     children: [
       {
         path: "",
@@ -33,14 +43,30 @@ const routes = [
   {
     path: "/",
     name: "login",
-    component: LoginView
+    component: LoginView,
+    // beforeEnter (to, from, next) {
+    //   if (window.localStorage.getItem("user")) {
+    //     next({ path: "/home" })
+    //   } else {
+    //     next()
+    //   }
+    // }
   }
 
 ]
 
 const router = new VueRouter({
-  routes,
-  mode: "history"
+  routes
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(_ => _.meta.login_request == true)) {
+    if (window.localStorage.getItem("user")) {
+      next()
+    } else {
+      next("/")
+    }
+  } else {
+    next();
+  }
+})
 export default router

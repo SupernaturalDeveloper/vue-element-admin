@@ -26,7 +26,7 @@
 
         data() {
             return {
-                user: window.sessionStorage.getItem("user"),
+                user: window.localStorage.getItem("user"),
             };
         },
 

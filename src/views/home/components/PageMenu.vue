@@ -1,27 +1,20 @@
 <template>
     <div class="pageMenu">
         <el-menu
-            default-active="1"
+            :default-active="$route.path"
+            router
             class="el-menu-vertical-demo"
             background-color="rgb(44,64,90)"
             text-color="#fff"
             active-text-color="#ffd04b"
         >
-            <el-menu-item index="1" @click="toRouteHandle(0)">
-                <i class="el-icon-location"></i>
-                <span slot="title">系统概览</span>
-            </el-menu-item>
-            <el-menu-item index="2" @click="toRouteHandle(1)">
-                <i class="el-icon-menu"></i>
-                <span slot="title">设备登记</span>
-            </el-menu-item>
-            <el-menu-item index="3" @click="toRouteHandle(2)">
-                <i class="el-icon-document"></i>
-                <span slot="title">设备管理</span>
-            </el-menu-item>
-            <el-menu-item index="4" @click="toRouteHandle(3)">
-                <i class="el-icon-setting"></i>
-                <span slot="title">数据字典</span>
+            <el-menu-item
+                v-for="(item, index) in routes"
+                :key="index"
+                :route="item"
+                :index="item"
+            >
+                <span slot="title">{{ titles[index] }}</span>
             </el-menu-item>
         </el-menu>
     </div>
@@ -30,7 +23,11 @@
 <script>
     export default {
         name: "PageMenu",
-
+        data() {
+            return {
+                activeIndex: this.$route.path,
+            };
+        },
         data() {
             return {
                 routes: [
@@ -39,16 +36,13 @@
                     "/home/management",
                     "/home/dictionaries",
                 ],
+                titles: ["系统概览", "设备登记", "设备管理", "数据字典"],
             };
         },
 
         mounted() {},
 
-        methods: {
-            toRouteHandle(index) {
-                this.$router.replace(this.routes[index]);
-            },
-        },
+        methods: {},
     };
 </script>
 

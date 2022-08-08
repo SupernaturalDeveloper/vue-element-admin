@@ -21,10 +21,6 @@
             PageHeader,
             PageMenu,
         },
-        data() {
-            return {};
-        },
-        methods: {},
     };
 </script>
 
@@ -32,7 +28,7 @@
     .pageContent {
         display: flex;
         .pageView {
-            width: 80%;
+            width: 100%;
         }
     }
 </style>
