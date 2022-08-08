@@ -12,7 +12,7 @@
             @changePageCurren="changePageCurren"
         >
             <template v-if="flagAddMessage" #addMessage>
-                <add-view></add-view>
+                <add-or-edit></add-or-edit>
             </template>
         </main-control>
     </div>
@@ -20,7 +20,7 @@
 
 <script>
     import MainControl from "@/components/MainControl";
-    import AddView from "@/components/AddView";
+    import AddOrEdit from "@/components/AddOrEdit";
 
     export default {
         name: "RegisterAndManagement",
@@ -46,7 +46,7 @@
         },
         components: {
             MainControl,
-            AddView,
+            AddOrEdit,
         },
         computed: {
             getFormInfo() {
@@ -57,8 +57,9 @@
             },
         },
         async created() {
-            let getStatusListPre = await this.Req[this.statusListApi]();
-            this.check_options = getStatusListPre.data;
+            let getStatusList = await this.Req[this.statusListApi]();
+            this.check_options = getStatusList.data;
+            this.$store.dispatch("postStatusList", getStatusList.data);
             this.searchListHandler({
                 pageNo: this.pageNo,
                 pageSize: this.pageSize,

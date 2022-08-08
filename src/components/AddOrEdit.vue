@@ -1,10 +1,17 @@
 <template>
     <div class="add">
-        <el-button type="primary" @click="dialogFormVisible = true"
-            >设备登记</el-button
+        <el-button
+            type="primary"
+            size="mini"
+            @click="dialogFormVisible = true"
+            >{{ btnText }}</el-button
         >
 
-        <el-dialog title="设备登记" :visible.sync="dialogFormVisible">
+        <el-dialog
+            :append-to-body="appendToBody"
+            :title="dialogTitle"
+            :visible.sync="dialogFormVisible"
+        >
             <el-form
                 :model="ruleForm"
                 :rules="rules"
@@ -12,6 +19,11 @@
                 label-width="100px"
                 class="demo-ruleForm"
             >
+                <template v-if="ruleForm.id !== ''">
+                    <el-form-item label="设备编号" prop="name">
+                        <el-input v-model="ruleForm.id" disabled></el-input>
+                    </el-form-item>
+                </template>
                 <el-form-item label="设备名称" prop="name">
                     <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
@@ -37,17 +49,30 @@
                 <el-form-item label="设备单价" prop="price">
                     <el-input v-model="ruleForm.price"></el-input>
                 </el-form-item>
-                <el-form-item label="购置日期" prop="date" required>
-                    <el-date-picker
+                <el-form-item label="购置日期" prop="date">
+                    <input
                         type="date"
                         placeholder="选择日期"
                         v-model="ruleForm.time"
-                    ></el-date-picker>
+                    />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')"
-                        >立即创建</el-button
-                    >
+                    <template v-if="btnControl">
+                        <el-button
+                            type="primary"
+                            :plain="true"
+                            @click="submitForm('ruleForm')"
+                            >保存</el-button
+                        >
+                    </template>
+                    <template v-else>
+                        <el-button
+                            :plain="true"
+                            type="primary"
+                            @click="updateHandler"
+                            >保存</el-button
+                        >
+                    </template>
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -57,18 +82,43 @@
 
 <script>
     export default {
+        props: {
+            appendToBody: {
+                type: Boolean,
+                default: false,
+            },
+            btnText: {
+                type: String,
+                default: "登记新设备",
+            },
+            dialogTitle: {
+                type: String,
+                default: "设备登记添加",
+            },
+            btnControl: {
+                type: Boolean,
+                default: true,
+            },
+            formObj: {
+                type: Object,
+                default() {
+                    return {
+                        id: "",
+                        name: "",
+                        category: "",
+                        number: "",
+                        price: "",
+                        time: "",
+                    };
+                },
+            },
+        },
         data() {
             return {
                 dialogFormVisible: false,
                 itemize: [],
                 // name设备名称、category设备分类(传分类id)、number设备数量、price设备单价、time采购时间
-                ruleForm: {
-                    name: "",
-                    category: "",
-                    number: "",
-                    price: "",
-                    time: "",
-                },
+                ruleForm: this.formObj,
                 rules: {
                     name: [
                         {
@@ -121,6 +171,19 @@
             this.itemize = getCategoryList.data;
         },
         methods: {
+            // 保存
+            async updateHandler() {
+                let res = await this.Req.postPreEdit(this.ruleForm);
+                if (res.code === 0) {
+                    this.$message({
+                        message: "保存成功请刷新！！",
+                        type: "success",
+                    });
+                    this.dialogFormVisible = false;
+                } else {
+                    this.$message.error("保存失败！！请检查！！");
+                }
+            },
             submitForm(formName) {
                 this.$refs[formName].validate(valid => {
                     if (valid) {

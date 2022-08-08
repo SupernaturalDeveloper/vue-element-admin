@@ -12,6 +12,9 @@ const getOverviewCategory = () => _.getAxios("category-overview");
 // 参数：type=pre
 const getStatusListPre = () => _.getAxios("status-list", { type: "pre" })
 
+// 设备登记页的入库/post ：http://jxsjs.com/equipment/pre-approve
+// 参数：id
+const postPreApprove = id => _.postAxios("pre-approve", { id })
 // 编辑未入库设备状态/POST：http://jxsjs.com/equipment/status-edit
 // 参数：type=pre、id状态编号、 name状态名称、color状态颜色
 const postStatusEditPre = function ({ id = null, name = null, color = null } = {}) {
@@ -44,6 +47,10 @@ const postStatusEditEquip = function ({ id = null, name = null, color = null } =
         id, name, color
     })
 }
+
+// 更改已入库设备状态 /post equip-set
+// 参数 id设备编号 status更改后的状态
+const postQquipSet = ({ id, status } = {}) => _.postAxios("equip-set", { id, status })
 
 // 已入库设备状态列表排序/POST：http://jxsjs.com/equipment/status-order
 // 参数：type=equip、ids状态编号排序数组
@@ -225,5 +232,11 @@ export default {
     postPreEdit,
     // 审核设备/POST
     // id设备编号
-    postPreCheck
+    postPreCheck,
+    // 设备登记页的入库
+    // 参数：id
+    postPreApprove,
+    // 更改已入库设备状态 /post equip-set
+    // 参数 id设备编号 status更改后的状态
+    postQquipSet
 }

@@ -45,12 +45,28 @@
             <el-table-column label="操作" width="200px">
                 <template slot-scope="scope">
                     <div class="control">
-                        <!-- 详情 -->
                         <detail-dialog
                             :detailsDialogObj="scope.row"
                         ></detail-dialog>
-
                         <template v-if="listName == 'pre'">
+                            <template v-if="scope.row.status == 'STATUS1'">
+                                <add-or-edit
+                                    btnText="编辑"
+                                    dialogTitle="设备登记编辑"
+                                    :btnControl="false"
+                                    :formObj="scope.row"
+                                >
+                                </add-or-edit>
+
+                                <check-control
+                                    :scopeObj="scope.row"
+                                ></check-control>
+                            </template>
+                            <template v-else>
+                                <put-in-storage
+                                    :scopeObj="scope.row"
+                                ></put-in-storage>
+                            </template>
                             <!-- 判断是否审核 -->
                             <!-- 如果未审核 渲染编辑按钮和审核按钮 -->
                             <!-- 如果审核 渲染入库按钮  -->
@@ -59,6 +75,12 @@
                             <!-- 判断是否报废 -->
                             <!-- 如果报废 则不渲染 -->
                             <!-- 否则 渲染更改状态按钮 -->
+                            <!-- 详情 -->
+
+                            <change-status-btn
+                                v-if="scope.row.status != 'STATUS6'"
+                                :scopeObj="scope.row"
+                            ></change-status-btn>
                         </template>
                     </div>
                 </template>
@@ -69,7 +91,10 @@
 
 <script>
     import DetailDialog from "@/components/DetailDialog";
-    import ChangeStatusDialog from "@/components/button/ChangeStatusDialog";
+    import AddOrEdit from "@/components/AddOrEdit";
+    import CheckControl from "@/components/button/CheckControl";
+    import PutInStorage from "@/components/button/PutInStorage";
+    import ChangeStatusBtn from "@/components/button/ChangeStatusBtn";
     export default {
         props: ["tableData", "listName", "check_options"],
         data() {
@@ -78,8 +103,9 @@
         methods: {
             getStatusItem(status) {
                 let statusItem = this.check_options.filter(
-                    item => item.id == status
+                    item => item.id == status || item.name == status
                 )[0];
+                // console.log(statusItem, status);
                 return `<span>${statusItem.name}</span><i class="statusColor" style="vertical-align: middle;margin-left: 4px;display: inline-block;width:8px;height:8px;background: ${statusItem.color} "></i>`;
             },
             getCategoryItem(category) {
@@ -91,9 +117,13 @@
         },
         components: {
             DetailDialog,
+            AddOrEdit,
+            CheckControl,
+            PutInStorage,
+            ChangeStatusBtn,
         },
         mounted() {
-            console.log(this.listName, this.check_options);
+            // console.log(this.listName, this.check_options);
         },
     };
 </script>

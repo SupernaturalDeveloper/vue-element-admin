@@ -1,6 +1,6 @@
 <template>
     <div class="reg">
-        <h1 class="title">设备登记</h1>
+        <h1 class="title">{{ title }}</h1>
         <template v-if="check_options.length">
             <flag-check :flagCheckArr="check_options"></flag-check>
         </template>
