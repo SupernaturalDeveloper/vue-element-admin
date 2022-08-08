@@ -37,7 +37,7 @@
                 <el-form-item label="设备单价" prop="price">
                     <el-input v-model="ruleForm.price"></el-input>
                 </el-form-item>
-                <el-form-item label="购置日期" prop="date">
+                <el-form-item label="购置日期" prop="date" required>
                     <el-date-picker
                         type="date"
                         placeholder="选择日期"

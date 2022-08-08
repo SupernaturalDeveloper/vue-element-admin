@@ -6,6 +6,7 @@
             :tableData="tableData"
             :pageNums="pageNums"
             :pageSize="pageSize"
+            :listName="listName"
             @searchList="searchListHandler"
             @changePageSize="changePageSize"
             @changePageCurren="changePageCurren"
@@ -24,6 +25,7 @@
     export default {
         name: "RegisterAndManagement",
         props: {
+            listName: String,
             title: String,
             statusListApi: String,
             listApi: String,

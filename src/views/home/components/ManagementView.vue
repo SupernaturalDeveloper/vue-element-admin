@@ -1,6 +1,7 @@
 <template>
     <register-and-management
         title="设备管理"
+        listName="equip"
         statusListApi="getStatusListEquip"
         listApi="postEquipList"
     ></register-and-management>

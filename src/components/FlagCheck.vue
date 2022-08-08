@@ -22,7 +22,7 @@
         right: 30px;
         top: 30px;
         display: flex;
-        & > div {
+        & div {
             width: 100px;
             i {
                 display: inline-block;

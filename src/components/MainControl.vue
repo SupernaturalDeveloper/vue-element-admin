@@ -14,7 +14,11 @@
                     <slot name="addMessage"></slot>
                 </div>
                 <template v-if="getTableData.length">
-                    <TableView :tableData="getTableData" />
+                    <TableView
+                        :listName="listName"
+                        :check_options="check_options"
+                        :tableData="getTableData"
+                    />
                 </template>
                 <el-pagination
                     @size-change="handleSizeChange"
@@ -38,6 +42,8 @@
     export default {
         name: "MainControl",
         props: {
+            // 列表名
+            listName: String,
             // 标题
             title: {
                 type: String,

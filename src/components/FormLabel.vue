@@ -81,6 +81,7 @@
         async mounted() {
             let getCategoryList = await this.Req.getCategoryList();
             this.itemize = getCategoryList.data;
+            this.$store.dispatch("postItemize", getCategoryList.data);
         },
 
         methods: {

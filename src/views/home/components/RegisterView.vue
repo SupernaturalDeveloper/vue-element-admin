@@ -1,6 +1,7 @@
 <template>
     <register-and-management
         title="设备登记"
+        listName="pre"
         statusListApi="getStatusListPre"
         listApi="postPreList"
         :flagAddMessage="true"

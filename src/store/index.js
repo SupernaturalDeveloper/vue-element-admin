@@ -5,18 +5,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    overArr: null
+    itemize: []
   },
   getters: {
   },
   mutations: {
-    one (state, val) {
-      state.overArr = val
+    postItemize (state, list) {
+      state.itemize = list
     }
   },
   actions: {
-    one (ctx, val) {
-      ctx.commit('one', val)
+    postItemize (ctx, list) {
+      ctx.commit("postItemize", list)
     }
   },
   modules: {
