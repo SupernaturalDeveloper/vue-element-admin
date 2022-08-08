@@ -37,6 +37,7 @@
                         type: "success",
                         message: "审核成功!",
                     });
+                    window.location.reload();
                     return;
                 }
                 this.$message({

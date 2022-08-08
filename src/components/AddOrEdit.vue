@@ -176,13 +176,14 @@
                 let res = await this.Req.postPreEdit(this.ruleForm);
                 if (res.code === 0) {
                     this.$message({
-                        message: "保存成功请刷新！！",
+                        message: "保存成功！！",
                         type: "success",
                     });
                     this.dialogFormVisible = false;
-                } else {
-                    this.$message.error("保存失败！！请检查！！");
+                    window.location.reload();
+                    return;
                 }
+                this.$message.error("保存失败！！请检查！！");
             },
             submitForm(formName) {
                 this.$refs[formName].validate(valid => {

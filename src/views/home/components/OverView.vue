@@ -1,7 +1,7 @@
 <template>
     <div class="overView">
         <div class="title">系统概览</div>
-        <div class="tag">
+        <div class="tag" v-if="numberVal > 0">
             <el-tag class="number">
                 <i class="el-icon-s-order"></i>
                 <span>设备总数</span>

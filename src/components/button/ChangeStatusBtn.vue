@@ -76,6 +76,7 @@
                         message: "状态更改成功!",
                     });
                     this.innerVisible = false;
+                    window.location.reload();
                     return;
                 }
                 this.$message({
